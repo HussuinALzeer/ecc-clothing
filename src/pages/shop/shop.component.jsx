@@ -24,7 +24,7 @@ class Shoppage extends React.Component{
                     ))
                     
                 }
-                asd
+                
                 
             </div>  
 
