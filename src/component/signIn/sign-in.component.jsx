@@ -8,7 +8,7 @@ import CustomButton from "../custom-button/custtom-button.component";
 //firebase
 import GoogleButton from "react-google-button";
 
-import {signInWithGoogle} from '../../firebase/firebase.utils'
+import {auth, signInWithGoogle} from '../../firebase/firebase.utils'
 
 
 class SignIn extends React.Component{
@@ -28,9 +28,19 @@ class SignIn extends React.Component{
   
 
     // it will clear the field after i submit in
-    handleSubmit = (event) =>{
+    handleSubmit = async (event) =>{
         event.preventDefault();
-        this.setState({email:'',password:''})
+
+        const {email,password} = this.state
+
+        try{
+            await auth.signInWithEmailAndPassword(email,password);
+            this.setState({email:'',password:''})
+
+        }catch (error) {
+            console.log(error);
+        }
+
     }
 
     handelChange = (event)=>{

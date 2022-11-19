@@ -14,6 +14,36 @@ const app= {
     measurementId: "G-PXWC32WRV2"
   };
 
+  ///////////////////adding the user to the data base ////////////////////////////////////////////////
+  export const createUserProfileDocument = async(userAuth, addtionalData) =>{
+    if(!userAuth)return;
+
+
+    const userRef=firestore.doc(`users/${userAuth.uid}`)
+
+    const snapShot =await  userRef.get()
+
+    if(!snapShot.exists){
+      const {displayName,email} = userAuth;
+      const createAt= new Date();
+
+      try{
+        await userRef.set({
+          displayName,
+          email,
+          createAt,
+          ...addtionalData
+        })
+      }catch(error){
+        console.log('error createing user',error.mssage);
+      }
+    }
+
+    return userRef;
+  }
+  ///////////////////adding the user to the data base ////////////////////////////////////////////////
+
+
   firebase.initializeApp(app)
 
   export const auth = firebase.auth()
