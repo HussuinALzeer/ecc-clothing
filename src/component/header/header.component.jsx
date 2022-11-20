@@ -6,6 +6,9 @@ import { auth } from "../../firebase/firebase.utils";
 import { useNavigate } from "react-router-dom";
 import {ReactComponent as Logo} from '../../assets/crown.svg'
 
+import { connect, Connect } from "react-redux";
+
+
 const Header = ({currentUser}) => {
     const link =useNavigate()
    return (
@@ -30,5 +33,9 @@ const Header = ({currentUser}) => {
 
    }
 
+   const mapStateToProps = (state) =>({
 
-export default Header;   
+        currentUser:state.user.currentUser
+   })
+
+export default connect(mapStateToProps)(Header);   
