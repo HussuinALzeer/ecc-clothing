@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 import {ReactComponent as Logo} from '../../assets/crown.svg'
 
 import { connect, Connect } from "react-redux";
-
+import CartIcon from "../cart-icon/cart-icon.component";
 
 const Header = ({currentUser}) => {
     const link =useNavigate()
@@ -27,6 +27,7 @@ const Header = ({currentUser}) => {
                 LOGIN
             </div>
         }
+            <CartIcon></CartIcon>
         </div>
     </div>
 )
