@@ -9,7 +9,8 @@ import {ReactComponent as Logo} from '../../assets/crown.svg'
 import { connect, Connect } from "react-redux";
 import CartIcon from "../cart-icon/cart-icon.component";
 
-const Header = ({currentUser}) => {
+import Cartbox from "../cart/cart.component";
+const Header = ({currentUser,hidden}) => {
     const link =useNavigate()
    return (
     <div className="header">
@@ -29,14 +30,19 @@ const Header = ({currentUser}) => {
         }
             <CartIcon></CartIcon>
         </div>
-    </div>
+
+    {  
+        hidden ? null :
+        <Cartbox></Cartbox>
+    }    </div>
 )
 
    }
 
-   const mapStateToProps = (state) =>({
+   const mapStateToProps = ({user:{currentUser} ,cart:{hidden} }) =>({
 
-        currentUser:state.user.currentUser
+        currentUser,
+        hidden
    })
 
 export default connect(mapStateToProps)(Header);   
