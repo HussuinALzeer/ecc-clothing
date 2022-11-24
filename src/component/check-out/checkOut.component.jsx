@@ -7,11 +7,16 @@ import { selectCartTotal } from "../../redux/cart/cart.selector";
 import CheckoutItem from "../checkout-item/checkoutItem.component";
 
 import './checkOut.styles.scss'
+import { motion } from'framer-motion';
 
 const Checkout  = ({cartItems,cartItemsTotal}) => {
 
     return(
-        <div className="checkout-page">
+        <motion.div className="checkout-page"
+        initial ={{opacity:0 }}
+            animate= {{opacity:1}}
+            exit ={{opacity:0}}
+        >
             <div className="checkout-header">
                 <div className="header-block">
                     <span>product</span>
@@ -44,7 +49,7 @@ const Checkout  = ({cartItems,cartItemsTotal}) => {
                 <span>TOTAL: ${cartItemsTotal}</span>
             </div>
 
-        </div>
+        </motion.div>
     )
 }
 

@@ -11,7 +11,7 @@ import Shoppage from './pages/shop/shop.component';
 import Header from './component/header/header.component';
 import SignInAndOut from './pages/sign-in/up/sign.component';
 import Checkout from './component/check-out/checkOut.component';
-
+import AnimatedRoute from './component/animatedRoute/animatedRoute.component';
 
 import { auth ,createUserProfileDocument} from './firebase/firebase.utils';
  
@@ -54,14 +54,8 @@ class App extends React.Component {
     <div className="App">
       
       <Header></Header>
-      <Routes>
-       <Route exact path="/" element={<Homepage />} />
-       <Route  path="/shop" element={<Shoppage />} />
-       <Route exact  path="/signIn" element={<SignInAndOut />} />
-       <Route exact  path="/checkout" element={<Checkout/>} />
-      </Routes>
-
       
+      <AnimatedRoute></AnimatedRoute>
     </div>
   );
 

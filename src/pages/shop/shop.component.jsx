@@ -3,6 +3,9 @@ import React from "react";
 import SHOP_DATA from "./shop.data";
 import CollectionPreview from "../../component/preview-collection/preview-collection.component";
 
+import { motion } from'framer-motion';
+
+
 class Shoppage extends React.Component{
 
     constructor(props){
@@ -17,7 +20,12 @@ class Shoppage extends React.Component{
         const {collections} = this.state ;
         
         return(
-            <div className="shop-page">
+            <motion.div className="shop-page"
+            
+            initial ={{opacity:0 }}
+            animate= {{opacity:1}}
+            exit ={{opacity:0}}
+            >
                 {
                     collections.map(({ id , ...otherCollectionProps }) => (
                         <CollectionPreview key={id} {...otherCollectionProps} ></CollectionPreview>
@@ -26,7 +34,7 @@ class Shoppage extends React.Component{
                 }
                 
                 
-            </div>  
+            </motion.div>  
 
         )
     }

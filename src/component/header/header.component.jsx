@@ -15,7 +15,9 @@ import { selectCurrentUser } from "../../redux/user/user.selecter";
 import CartIcon from "../cart-icon/cart-icon.component";
 
 import Cartbox from "../cart/cart.component";
+
 const Header = ({currentUser,hidden}) => {
+
     const link =useNavigate()
    return (
     <div className="header">
