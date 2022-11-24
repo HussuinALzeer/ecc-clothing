@@ -4,7 +4,7 @@ import { addItemToCart } from "./cart.utils";
 
 const INITIAL_STATE={
     hidden :true,
-    cartItems:[]
+    cartItems:[],
 }
 
 const cartReducer = (state=INITIAL_STATE,action) =>{
@@ -19,6 +19,8 @@ const cartReducer = (state=INITIAL_STATE,action) =>{
                 ...state,
                 cartItems:addItemToCart(state.cartItems ,action.payload)// i add the list and the payload t this function
             };
+
+         
             default:
                 return state;
     }

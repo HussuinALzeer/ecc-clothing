@@ -4,12 +4,15 @@ import { useNavigate } from 'react-router-dom';
 import { Route,Routes } from 'react-router-dom';
 import { Navigate } from "react-router-dom";
 
-
+import { selectCurrentUser } from './redux/user/user.selecter';
 
 import Homepage from './pages/homepage/homepage.conponent';
 import Shoppage from './pages/shop/shop.component';
 import Header from './component/header/header.component';
 import SignInAndOut from './pages/sign-in/up/sign.component';
+import Checkout from './component/check-out/checkOut.component';
+
+
 import { auth ,createUserProfileDocument} from './firebase/firebase.utils';
  
 import { connect, Connect } from 'react-redux';
@@ -55,7 +58,7 @@ class App extends React.Component {
        <Route exact path="/" element={<Homepage />} />
        <Route  path="/shop" element={<Shoppage />} />
        <Route exact  path="/signIn" element={<SignInAndOut />} />
-
+       <Route exact  path="/checkout" element={<Checkout/>} />
       </Routes>
 
       
@@ -66,8 +69,8 @@ class App extends React.Component {
   }
 }
 
-const mapStateToProps = ({user}) =>({
-  currentUser : user.currentUser
+const mapStateToProps = (state) =>({
+  currentUser : selectCurrentUser(state)
 })
 
 const mapDispatchToProps = dispatch =>({

@@ -6,6 +6,8 @@ import { toggleCartHidden } from "../../redux/cart/cart.actions";
 
 import { ReactComponent as ShopingIcon } from "../../assets/shopping-bag.svg";
 
+import { selectCartItemsCount } from "../../redux/cart/cart.selector";
+
 import './cart-icon.styles.scss';
 
 
@@ -28,10 +30,8 @@ const mapDispatchToProps = dispatch =>({
 
 // redux to bring the data from redux
 //i will add a new object to the list togather all quantity
-const mapStatuToProps = ({cart :{cartItems}}) =>({
-    itemCount :cartItems.reduce(
-        (accumalatedQuantity, cartItem) =>accumalatedQuantity + cartItem.quantity 
-        , 0)    // reduce here is a native array method in javascript
+const mapStatuToProps = (state) =>({
+    itemCount : selectCartItemsCount(state)
 })
 
 export default connect(mapStatuToProps,mapDispatchToProps)(CartIcon);

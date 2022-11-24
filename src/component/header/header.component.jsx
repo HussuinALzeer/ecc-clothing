@@ -7,6 +7,11 @@ import { useNavigate } from "react-router-dom";
 import {ReactComponent as Logo} from '../../assets/crown.svg'
 
 import { connect, Connect } from "react-redux";
+
+import { createStructuredSelector } from "reselect";
+import { selectCartHidden } from "../../redux/cart/cart.selector";
+import { selectCurrentUser } from "../../redux/user/user.selecter";
+
 import CartIcon from "../cart-icon/cart-icon.component";
 
 import Cartbox from "../cart/cart.component";
@@ -39,10 +44,10 @@ const Header = ({currentUser,hidden}) => {
 
    }
 
-   const mapStateToProps = ({user:{currentUser} ,cart:{hidden} }) =>({
+   const mapStateToProps = (state) =>({
 
-        currentUser,
-        hidden
+        currentUser:selectCurrentUser(state),
+        hidden: selectCartHidden(state)
    })
 
 export default connect(mapStateToProps)(Header);   
