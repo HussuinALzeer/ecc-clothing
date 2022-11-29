@@ -4,11 +4,12 @@ import { useNavigate } from "react-router-dom";
 
 import "./menu-item.styles.scss"
 
-const MenuItem = ({title , imageUrl ,size ,linkUrl}) =>  {
+const MenuItem = ({id, title , imageUrl ,size ,linkUrl}) =>  {
     const historyy= useNavigate()
     return(
 
-        <div className= {`${size} menu-item`} onClick={ ()=>{ historyy(linkUrl) }} > 
+
+        <div className= {`${size} menu-item`} onClick={ ()=>{ historyy(`shop/${title}`) }} > 
 
             <div className="background-image" style={{backgroundImage: `url(${imageUrl})`}} ></div>
             

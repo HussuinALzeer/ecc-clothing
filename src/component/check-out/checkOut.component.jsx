@@ -9,6 +9,8 @@ import CheckoutItem from "../checkout-item/checkoutItem.component";
 import './checkOut.styles.scss'
 import { motion } from'framer-motion';
 
+import StripeCheckoutButton from "../stripe-button/stripe-button.component";
+
 const Checkout  = ({cartItems,cartItemsTotal}) => {
 
     return(
@@ -48,7 +50,11 @@ const Checkout  = ({cartItems,cartItemsTotal}) => {
             <div className="total">
                 <span>TOTAL: ${cartItemsTotal}</span>
             </div>
+            <StripeCheckoutButton price={cartItemsTotal}></StripeCheckoutButton>
 
+            <div className="test-warning">
+                4242 4242 4242 4242 - Exp:11/2022 - CVV:123
+            </div>
         </motion.div>
     )
 }

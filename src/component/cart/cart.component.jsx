@@ -15,6 +15,7 @@ import { selectCartItems } from "../../redux/cart/cart.selector";
 
 import { toggleCartHidden } from "../../redux/cart/cart.actions";
 
+
 const Cartbox = ({cartItems,dispatch,...otherProps})=>{
     console.log(otherProps);
     const link =useNavigate()
