@@ -44,6 +44,40 @@ const app= {
   ///////////////////adding the user to the data base ////////////////////////////////////////////////
 
 
+  // to move the data to firebase
+  // export const addCollectionAndDocuments = async (collectionKey,objectToAdd) =>{
+
+  //   const collectionRef = firestore.collection(collectionKey);
+
+  //   const batch = firestore.batch();
+
+  //   objectToAdd.forEach(object => {
+  //     const newDocRef =  collectionRef.doc();
+  //     batch.set(newDocRef,object)
+  //   } );
+
+  //   return await batch.commit()
+  // }
+
+ export const converCollectionsSnapshotToMap  = (collections)=>{
+    const transformedCollection = collections.docs.map(doc =>{
+      const {title ,items} = doc.data();
+
+      return{
+        routeName:encodeURI(title.toLowerCase()),
+        id:doc.id,
+        title,
+        items
+      }
+    });
+
+    return transformedCollection.reduce((accumulator,collection) => {
+      accumulator[collection.title.toLowerCase()] = collection;
+      return accumulator;
+    },{})
+  }
+
+
   firebase.initializeApp(app)
 
   export const auth = firebase.auth()

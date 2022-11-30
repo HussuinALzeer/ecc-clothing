@@ -1,24 +1,20 @@
 import React from 'react';
 import './App.css';
-import { useNavigate } from 'react-router-dom';
-import { Route,Routes } from 'react-router-dom';
-import { Navigate } from "react-router-dom";
 
 import { selectCurrentUser } from './redux/user/user.selecter';
 
-import Homepage from './pages/homepage/homepage.conponent';
-import Shoppage from './pages/shop/shop.component';
+
 import Header from './component/header/header.component';
-import SignInAndOut from './pages/sign-in/up/sign.component';
-import Checkout from './component/check-out/checkOut.component';
 import AnimatedRoute from './component/animatedRoute/animatedRoute.component';
 
-import { auth ,createUserProfileDocument} from './firebase/firebase.utils';
+import { auth ,createUserProfileDocument ,addCollectionAndDocuments} from './firebase/firebase.utils';
  
-import { connect, Connect } from 'react-redux';
+import { connect} from 'react-redux';
 import {setCurrentUser} from './redux/user/user.action'
 
+import SHOP_DATA from './redux/collection/shop.data';
 
+import { selectCollectionForPreview  } from './redux/collection/collection.selecter';
 
 class App extends React.Component {
 
@@ -26,7 +22,7 @@ class App extends React.Component {
 
   componentDidMount() {
     
-    const {setCurrentUser}=this.props
+    const {setCurrentUser ,collectionsArray}=this.props
 
     this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
       if (userAuth) {
@@ -42,6 +38,7 @@ class App extends React.Component {
       }
 
       setCurrentUser(userAuth);
+      // addCollectionAndDocuments('collections',collectionsArray.map(({title,items}) =>({title,items})))
     });
   }
   componentWillUnmount(){
@@ -64,7 +61,8 @@ class App extends React.Component {
 }
 
 const mapStateToProps = (state) =>({
-  currentUser : selectCurrentUser(state)
+  currentUser : selectCurrentUser(state),
+  collectionsArray :selectCollectionForPreview(state)
 })
 
 const mapDispatchToProps = dispatch =>({

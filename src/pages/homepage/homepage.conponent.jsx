@@ -5,7 +5,7 @@ import './homepage.styles.scss'
 
 import Directory from "../../component/directory/directory.component";
 import { motion } from'framer-motion';
-
+import { HomepageContianer } from "./homepage.styles";
 
 const Homepage = (props) => {
 
