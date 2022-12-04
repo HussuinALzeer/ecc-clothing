@@ -7,42 +7,24 @@ import { selectCurrentUser } from './redux/user/user.selecter';
 import Header from './component/header/header.component';
 import AnimatedRoute from './component/animatedRoute/animatedRoute.component';
 
-import { auth ,createUserProfileDocument ,addCollectionAndDocuments} from './firebase/firebase.utils';
  
 import { connect} from 'react-redux';
-import {setCurrentUser} from './redux/user/user.action'
-
-import SHOP_DATA from './redux/collection/shop.data';
 
 import { selectCollectionForPreview  } from './redux/collection/collection.selecter';
 
-class App extends React.Component {
+import { checkUserSession } from './redux/user/user.action';
 
-  unsubscribeFromAuth = null
+class App extends React.Component {
+  
 
   componentDidMount() {
-    
-    const {setCurrentUser ,collectionsArray}=this.props
+  const {checkUserSession} = this.props
+  
+  checkUserSession()
 
-    this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-      if (userAuth) {
-        const userRef = await createUserProfileDocument(userAuth);
-
-        userRef.onSnapshot(snapShot => {
-          setCurrentUser ({
-              id: snapShot.id,
-              ...snapShot.data()
-            })
-
-        });
-      }
-
-      setCurrentUser(userAuth);
-      // addCollectionAndDocuments('collections',collectionsArray.map(({title,items}) =>({title,items})))
-    });
   }
   componentWillUnmount(){
-    this.unsubscribeFromAuth();
+    // this.unsubscribeFromAuth();
   }
   
   render(){
@@ -67,7 +49,7 @@ const mapStateToProps = (state) =>({
 
 const mapDispatchToProps = dispatch =>({
 
-  setCurrentUser:user => dispatch(setCurrentUser(user))
+  checkUserSession: () => dispatch(checkUserSession())
 })
 
 export default connect(mapStateToProps,mapDispatchToProps)(App);

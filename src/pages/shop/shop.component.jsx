@@ -2,31 +2,27 @@ import React from "react";
 import { motion } from'framer-motion';
 
 import CollectionOverview from "../../component/collection-overview/collection-overview.component";
-import { Route,Routes,useRoutes  } from 'react-router-dom';
+import { Route,Routes} from 'react-router-dom';
 
-import {firestore ,converCollectionsSnapshotToMap} from '../../firebase/firebase.utils'
 import { connect } from "react-redux";
-import { UpdateCollections } from "../../redux/collection/collection.action";
-
+import { FetchCollectionsStart } from "../../redux/collection/collection.action";
+import { createStructuredSelector } from "reselect";
+import { selectCollectionFetching } from "../../redux/collection/collection.selecter";
 
 class Shoppage extends React.Component  {
-  
-        unsubscribeFromSnapshot = null;
+
+        
 
         componentDidMount(){
-          const {updateCollections} = this.props;
-
-          const collectionRef = firestore.collection('collections');
-
-          collectionRef.onSnapshot(async Snapshot =>{
-            const collectonsMap = converCollectionsSnapshotToMap(Snapshot);
-
-            updateCollections(collectonsMap)
-          })
+           const {FetchCollectionsStart} = this.props;
+           FetchCollectionsStart()
+          
         }
 
         render(){
           
+          const {isCollectionsFetching} = this.props
+
           return(
             <motion.div className="shop-page" initial ={{opacity:0 }} animate= {{opacity:1}}exit ={{opacity:0}}>
             <CollectionOverview/>
@@ -42,8 +38,13 @@ class Shoppage extends React.Component  {
         }
 }
 
-const mapDispatchToProps = (dispatch) =>({
-  updateCollections: collectionMap => dispatch(UpdateCollections(collectionMap))
+const mapStateToProps = createStructuredSelector({
+  isCollectionsFetching:selectCollectionFetching
 })
 
-export default connect(null,mapDispatchToProps)(Shoppage);
+const mapDispatchToProps = (dispatch) =>({
+  FetchCollectionsStart : () =>dispatch(FetchCollectionsStart()) 
+
+})
+
+export default connect(mapStateToProps,mapDispatchToProps)(Shoppage);

@@ -19,23 +19,17 @@ export const selectCollection = createSelector (
 
 export const selectCollectionForPreview  =  createSelector(
     [selectCollection],
-    collections => Object.keys(collections).map(key => collections[key])
+    collections => collections ? Object.keys(collections).map(key => collections[key]) : []
 )
 
-
-
-export const selectCollectionHate = createSelector (
-    [selectCollection],
-    collections => collections.mens
-)
-
-export const selectCollectionHateF = createSelector(
-    [selectCollectionHate],
-    collections => Object.keys(collections).map(key => collections[key])
-)
 
 export const selectCollectionItem = collecionUrlParam => createSelector(
     [selectCollection],
     collections => collections.find( collection => collection.id === COLLECTION_ID_MAP[collecionUrlParam] )
 )
 
+
+export const selectCollectionFetching = createSelector (
+    [selectShope],
+    shop => shop.isFetching
+)

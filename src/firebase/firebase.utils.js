@@ -41,23 +41,7 @@ const app= {
 
     return userRef;
   }
-  ///////////////////adding the user to the data base ////////////////////////////////////////////////
 
-
-  // to move the data to firebase
-  // export const addCollectionAndDocuments = async (collectionKey,objectToAdd) =>{
-
-  //   const collectionRef = firestore.collection(collectionKey);
-
-  //   const batch = firestore.batch();
-
-  //   objectToAdd.forEach(object => {
-  //     const newDocRef =  collectionRef.doc();
-  //     batch.set(newDocRef,object)
-  //   } );
-
-  //   return await batch.commit()
-  // }
 
  export const converCollectionsSnapshotToMap  = (collections)=>{
     const transformedCollection = collections.docs.map(doc =>{
@@ -78,14 +62,25 @@ const app= {
   }
 
 
+  export const getCurrentUser = () =>{
+
+    return new Promise((reslove,reject) =>{
+      const unsubscribe = auth.onAuthStateChanged(userAuth=>{
+        unsubscribe();
+        reslove(userAuth);
+      },reject
+      )
+    })
+  }
+
   firebase.initializeApp(app)
 
   export const auth = firebase.auth()
   export const firestore = firebase.firestore()
 
 
-  const provider = new firebase.auth.GoogleAuthProvider();
+  export const googleProvider = new firebase.auth.GoogleAuthProvider();
 
-  export const signInWithGoogle = () => auth.signInWithPopup(provider)
+  export const signInWithGoogle = () => auth.signInWithPopup(googleProvider)
 
  export default firebase;

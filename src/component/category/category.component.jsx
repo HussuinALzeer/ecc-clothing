@@ -2,7 +2,6 @@ import React from "react";
 
 import { connect } from "react-redux";
 
-import { selectCollectionHateF ,selectCollectionHate } from "../../redux/collection/collection.selecter";
 import { createStructuredSelector } from "reselect";
 
 import CollectionItem from "../collection-items/collection-item.component";
@@ -25,8 +24,8 @@ const Category = ({hats ,hatss}) =>{
 }
 
 const mapStateToProps = createStructuredSelector ({
-    hats:selectCollectionHate,
-    hatss:selectCollectionHateF
+    // hats:selectCollectionHate,
+    // hatss:selectCollectionHateF
 })
 
 export default connect(mapStateToProps)(Category)
